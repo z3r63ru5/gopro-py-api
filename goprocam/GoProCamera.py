@@ -372,9 +372,12 @@ class GoPro:
 		#Fallback for HERO5
 		sock.sendto(message, ("10.5.5.9", 7))
 	def pair(self):
-		#This is a pairing procedure needed for HERO4 and HERO5 cameras. When those type GoPro camera are purchased the GoPro Mobile app needs an authentication code when pairing the camera to a mobile device for the first time. 
+		#This is a pairing procedure needed for HERO4 and HERO5 cameras. When those type GoPro camera are purchased 
+		#the GoPro Mobile app needs an authentication code when pairing the camera to a mobile device for the first time. 
 		#The code is useless afterwards. This function will pair your GoPro to the machine without the need of using the mobile app -- at all.
-		print("Make sure your GoPro camera is in pairing mode!\nGo to settings > Wifi > PAIR > GoProApp to start pairing.\nThen connect to it, the ssid name should be GOPRO-XXXX/GPXXXXX/GOPRO-BP-XXXX and the password is goprohero")
+		print("Make sure your GoPro camera is in pairing mode!\n \
+			Go to settings > Wifi > PAIR > GoProApp to start pairing.\n \
+			Then connect to it, the ssid name should be GOPRO-XXXX/GPXXXXX/GOPRO-BP-XXXX and the password is goprohero")
 		code=str(input("Enter pairing code: "))
 		context = ssl._create_unverified_context()
 		ssl._create_default_https_context = ssl._create_unverified_context
