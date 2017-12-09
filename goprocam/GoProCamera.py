@@ -39,6 +39,7 @@ class GoPro:
 			self.prepare_gpcontrol()
 		
 		print("Camera successfully connected!")
+
 	def __init__(self, camera="detect", mac_address="AA:BB:CC:DD:EE:FF"):
 		if sys.version_info[0] < 3:
 			print("Needs Python v3, run again on a virtualenv or install Python 3")
@@ -58,11 +59,15 @@ class GoPro:
 				self.power_on(self._mac_address)
 				self.prepare_gpcontrol()
 			print("Connected to " + self.ip_addr)
+
+
 	def KeepAlive(self):
 		while True:
 			sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 			sock.sendto("_GPHD_:0:0:2:0.000000\n".encode(), ("10.5.5.9", 8554))
 			time.sleep(2500/1000)
+
+
 	def getPassword(self):
 		try:
 			PASSWORD = urllib.request.urlopen('http://10.5.5.9/bacpac/sd', timeout=5).read()
@@ -75,6 +80,8 @@ class GoPro:
 		except timeout:
 			return ""
 			print("HTTP Timeout\nMake sure the connection to the WiFi camera is still active.")
+
+
 	def gpControlSet(self, param,value):
 		#sends Parameter and value to gpControl/setting
 		try:
@@ -86,6 +93,8 @@ class GoPro:
 			return ""
 			print("HTTP Timeout\nMake sure the connection to the WiFi camera is still active.")
 	
+
+
 	def gpControlCommand(self, param):
 		try:
 			return urllib.request.urlopen('http://10.5.5.9/gp/gpControl/command/' + param, timeout=5).read().decode('utf-8')
@@ -95,6 +104,8 @@ class GoPro:
 		except timeout:
 			return ""
 			print("HTTP Timeout\nMake sure the connection to the WiFi camera is still active.")
+
+
 	def gpControlExecute(self, param):
 		try:
 			return urllib.request.urlopen('http://10.5.5.9/gp/gpControl/execute?' + param, timeout=5).read().decode('utf-8')
@@ -104,6 +115,8 @@ class GoPro:
 		except timeout:
 			return ""
 			print("HTTP Timeout\nMake sure the connection to the WiFi camera is still active.")
+
+
 	def sendCamera(self, param,value=""):
 		value_notempty=""
 		if not value == "":
@@ -117,6 +130,7 @@ class GoPro:
 			print("HTTP Timeout\nMake sure the connection to the WiFi camera is still active.")	
 	
 	
+
 	def sendBacpac(self, param,value):
 		#sends parameter and value to /bacpac/
 		value_notemtpy = ""
@@ -129,7 +143,6 @@ class GoPro:
 		except timeout:
 			print("HTTP Timeout\nMake sure the connection to the WiFi camera is still active.")
 		
-	
 	
 	def whichCam(self):
 		# This returns what type of camera is currently connected.
@@ -183,6 +196,7 @@ class GoPro:
 			return self._camera
 	
 	
+
 	def getStatus(self, param, value=""):
 	   if self.whichCam() == "gpcontrol":
             try:
